@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Hero } from '../../interfaces/hero';
+import { HeroService } from 'src/app/services/hero-service';
 
 @Component({
   selector: 'app-add-hero',
@@ -9,24 +10,22 @@ import { Hero } from '../../interfaces/hero';
 })
 export class AddHeroComponent implements OnInit {
 
-  constructor() { }
+  constructor(private heroService: HeroService) { }
 
   heroForm = new FormGroup({
     name: new FormControl('')
   });
 
 
-  hero: Hero;
+  savedHero: Hero;
 
   onSubmit() {
-    this.hero = {
-      id: null,
+    const hero = {
       name: this.heroForm.value['name'],
-      createdOn: new Date().toLocaleDateString(),
-      lastModifiedOn: new Date().toLocaleDateString(),
     };
 
-    console.log(this.hero);
+    this.heroService.addHero(hero).subscribe(hero => this.savedHero = hero);
+    console.log(this.savedHero);
   }
 
   ngOnInit(): void {
