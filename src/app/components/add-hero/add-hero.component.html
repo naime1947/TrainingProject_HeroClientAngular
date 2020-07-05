@@ -1,0 +1,5 @@
+<form [formGroup]="heroForm" (ngSubmit)="onSubmit()" >
+    <p class="h4 mb-4">Add Hero</p>
+    <input type="text" class="form-control mb-4" formControlName="name" placeholder="Name">
+    <button mdbBtn color="info" block="true" class="my-4" type="submit">Add</button>
+  </form>
